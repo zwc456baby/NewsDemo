@@ -1,1 +1,1 @@
-include ':app', ':basemodule', ':network', ':baseviewmodule', ':baseview', ':utils'
+include ':app', ':basemodule', ':network', ':baseview', ':utils'

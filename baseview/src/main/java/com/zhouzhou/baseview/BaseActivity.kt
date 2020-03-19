@@ -4,9 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.Observer
-import com.zhouzhou.baseviewmodule.IViewModule
+import com.zhouzhou.basemodule.viewmodule.IViewModule
 
 abstract class BaseActivity<DB : ViewDataBinding, VM : IViewModule> : AppCompatActivity(),
     Observer<Any> {
@@ -28,6 +27,7 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : IViewModule> : AppCompatA
         viewModel?.let {
             lifecycle.addObserver(it)
         }
+//        viewModel
 //        viewModel.
 //        viewModel?.viewState
 //        viewModel?.viewState.

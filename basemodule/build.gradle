@@ -33,6 +33,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api "androidx.appcompat:appcompat:${rootProject.androidxVersion}"
 
+//    api project(':baseviewmodule')
     api project(':utils')
 }
 repositories {

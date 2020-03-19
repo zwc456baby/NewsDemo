@@ -1,4 +1,4 @@
-package com.zhouzhou.baseviewmodule
+package com.zhouzhou.basemodule.viewmodule
 
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
