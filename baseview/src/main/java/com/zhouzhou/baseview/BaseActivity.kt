@@ -27,20 +27,14 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : IViewModule> : AppCompatA
         viewModel?.let {
             lifecycle.addObserver(it)
         }
-//        viewModel
-//        viewModel.
-//        viewModel?.viewState
-//        viewModel?.viewState.
-
     }
 
     private fun bindLayout() {
         viewDataBinding = DataBindingUtil.setContentView(this, getLayoutId())
         if (getBindingVariable() > 0) {
-            viewDataBinding?.setVariable(getBindingVariable(), viewModel);
+            viewDataBinding?.setVariable(getBindingVariable(), viewModel)
         }
-        viewDataBinding?.executePendingBindings();
+        viewDataBinding?.executePendingBindings()
     }
-
 
 }

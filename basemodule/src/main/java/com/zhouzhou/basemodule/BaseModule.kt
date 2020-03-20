@@ -61,13 +61,5 @@ abstract class BaseModule<D> {
         }
     }
 
-    abstract fun reload()
-
-    abstract fun firstLoad()
-
-    abstract fun requestNext()
-
-    abstract fun isload(): Boolean
-
-    abstract fun cancel()
+    abstract fun clear()
 }
