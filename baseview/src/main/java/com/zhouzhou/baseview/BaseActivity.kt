@@ -10,8 +10,8 @@ import com.zhouzhou.basemodule.viewmodule.IViewModule
 abstract class BaseActivity<DB : ViewDataBinding, VM : IViewModule> : AppCompatActivity(),
     Observer<Any> {
 
-    private var viewModel: VM? = null
-    private var viewDataBinding: DB? = null
+    var viewModel: VM? = null
+    var viewDataBinding: DB? = null
 
     abstract fun getLayoutId(): Int
     open protected fun getBindingVariable(): Int {
@@ -20,13 +20,18 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : IViewModule> : AppCompatA
 
     abstract fun getViewModule(): VM
 
+    open protected fun observeLifecycle() {
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = getViewModule()
-        bindLayout()
         viewModel?.let {
             lifecycle.addObserver(it)
         }
+        observeLifecycle()
+        bindLayout()
     }
 
     private fun bindLayout() {

@@ -53,7 +53,7 @@ abstract class BaseModule<D> {
         } while ((releaseListener) != null)
     }
 
-    fun callbackData(success: Boolean, data: D, any: Any) {
+    fun callbackData(success: Boolean, data: D, any: Any?) {
         for (weakListener in mWeakListenerArrayList) {
             val listenerItem = weakListener.get()
             if (listenerItem != null) {

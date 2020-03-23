@@ -1,7 +1,5 @@
 package com.zhouzhou.networkmodule
 
-import io.reactivex.Observable
-import io.reactivex.ObservableSource
 import io.reactivex.ObservableTransformer
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -69,12 +67,15 @@ class ApiUtil private constructor() {
             val observable = upstream
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-            //                    .map(getAppErrorHandler())
-            //                    .onErrorResumeNext(HttpErrorHandler<T>()) as Observable<T>
+//                .map {
+//                    LogUtil.d("has error :${LogUtil.objToString(it)}")
+//                    return@map it
+//                }
+//                .onErrorResumeNext(Function<Throwable, Observable<T>> {
+//                    return@Function Observable.error<T>(it)
+//                })
             observable.subscribe(observer)
             observable
         }
     }
-
-
 }
