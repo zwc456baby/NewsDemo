@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+// 注意，对于 android studio ，必须添加此plugin
+// 否则使用 MVVM 时，会出现错误：Unresolved reference: BR
+apply plugin: "kotlin-kapt"
 
 android {
     compileSdkVersion 29
@@ -21,6 +24,13 @@ android {
     }
     dataBinding {
         enabled true
+    }
+
+    // 对于 kotlin，支持 LifecycleObserve，需要此配置，
+    // 否则出现Error: Default interface methods are only supported starting with Android N
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 

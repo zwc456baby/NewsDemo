@@ -31,12 +31,13 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api "androidx.appcompat:appcompat:${rootProject.androidxVersion}"
-    api 'androidx.lifecycle:lifecycle-extensions:2.1.0' // ViewModel and LiveData
-    api 'androidx.lifecycle:lifecycle-common-java8:2.1.0'
 
+    api "androidx.appcompat:appcompat:${rootProject.androidxVersion}"
+    api 'androidx.lifecycle:lifecycle-extensions:2.2.0' // ViewModel and LiveData
+    api 'androidx.lifecycle:lifecycle-common-java8:2.2.0'
 //    api project(':baseviewmodule')
     api project(':utils')
+    api project(':network')
 }
 repositories {
     mavenCentral()

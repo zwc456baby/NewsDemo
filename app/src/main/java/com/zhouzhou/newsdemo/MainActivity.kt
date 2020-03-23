@@ -1,7 +1,7 @@
 package com.zhouzhou.newsdemo
 
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.zhou.logutils.LogUtil
 import com.zhou.logutils.Logger
 import com.zhouzhou.basemodule.viewmodule.NewsViewModule
@@ -14,7 +14,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, NewsViewModule>() {
         // 只有使用 ViewModelProviders 才能将生命周期绑定到 ViewModel 中，实现生命周期感知
 //        // https://www.jianshu.com/p/e8955f525f4c
 ////        return NewsViewModule()
-        return ViewModelProviders.of(this).get(NewsViewModule::class.java)
+        return ViewModelProvider(this).get(NewsViewModule::class.java)
     }
 
     private val logger = Logger("MainActivity")
@@ -23,7 +23,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, NewsViewModule>() {
     }
 
     override fun getBindingVariable(): Int {
-        return 1
+        return BR.test
     }
 
     override fun onChanged(t: Any?) {

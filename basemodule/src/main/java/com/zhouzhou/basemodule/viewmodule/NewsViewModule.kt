@@ -4,12 +4,13 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
+import com.zhou.logutils.LogUtil
 import com.zhou.logutils.Logger
 import com.zhouzhou.basemodule.module.BaseModule
 import com.zhouzhou.basemodule.module.NewsModule
 import com.zhouzhou.basemodule.modulecallback.BaseCallback
 
-class NewsViewModule : BaseViewModule<String, NewsModule<String>>(), BaseCallback<String> {
+class NewsViewModule : BaseViewModule<String, NewsModule>(), BaseCallback<String> {
 
     private val logger = Logger("NewsViewModule")
     var helloWorld: MutableLiveData<ObservableField<String>> = MutableLiveData()
@@ -22,14 +23,11 @@ class NewsViewModule : BaseViewModule<String, NewsModule<String>>(), BaseCallbac
     }
 
     override fun success(module: BaseModule<String>, data: String, any: Any) {
-
+        logger.d("news view module success receive data:${LogUtil.objToString(data)}")
     }
 
     override fun faild(module: BaseModule<String>, data: String) {
-
-    }
-
-    init {
+        logger.d("news view module faild receive data:${LogUtil.objToString(data)}")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -37,13 +35,13 @@ class NewsViewModule : BaseViewModule<String, NewsModule<String>>(), BaseCallbac
         module?.register(this)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun destoryListenner() {
         module?.unregister(this)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun test() {
+    fun resume() {
         logger.d("listenner on resume ")
         if (isFirst) {
             isFirst = false
@@ -54,10 +52,16 @@ class NewsViewModule : BaseViewModule<String, NewsModule<String>>(), BaseCallbac
         curPage++
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun destory() {
+        module?.destory()
+    }
+
     override fun onCleared() {
         super.onCleared()
         module?.unregister(this)
-        module?.clear()
+        module?.destory()
+        module = null
 //        helloWorld = null
     }
 

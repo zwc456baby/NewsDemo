@@ -1,13 +1,18 @@
 package com.zhouzhou.basemodule.module
 
 import com.zhouzhou.basemodule.modulecallback.BaseCallback
+import io.reactivex.Observer
 import java.lang.ref.Reference
 import java.lang.ref.ReferenceQueue
 import java.lang.ref.WeakReference
+import java.util.*
 import java.util.concurrent.ConcurrentLinkedQueue
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 
 abstract class BaseModule<D> {
+    private var compositeDisposable: CompositeDisposable? = null
 
     protected var mReferenceQueue: ReferenceQueue<BaseCallback<D>> = ReferenceQueue()
     protected var mWeakListenerArrayList: ConcurrentLinkedQueue<WeakReference<BaseCallback<D>>> =
@@ -61,5 +66,14 @@ abstract class BaseModule<D> {
         }
     }
 
-    abstract fun clear()
+    fun addDisposable(disposable: Disposable) {
+        if (compositeDisposable == null) {
+            compositeDisposable = CompositeDisposable()
+        }
+        compositeDisposable?.add(disposable)
+    }
+
+    open fun destory() {
+        compositeDisposable?.dispose()
+    }
 }
