@@ -13,8 +13,8 @@ import com.zhouzhou.basemodule.viewmodule.IViewModule
 abstract class BaseFragment<DB : ViewDataBinding, VM : IViewModule> : Fragment(),
     Observer<Any> {
 
-    private var viewModel: VM? = null
-    private var viewDataBinding: DB? = null
+    protected var viewModel: VM? = null
+    protected var viewDataBinding: DB? = null
 
     abstract fun getLayoutId(): Int
     open protected fun getBindingVariable(): Int {
@@ -22,14 +22,24 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : IViewModule> : Fragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
         lifecycleObserver()
+
+        viewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
+        if (getBindingVariable() > 0) {
+            // viewModel 不能为空，否则会绑定失败。界面没有数据
+            viewDataBinding?.setVariable(getBindingVariable(), viewModel)
+        }
+        viewDataBinding?.executePendingBindings()
+
         return viewDataBinding?.root
     }
 
     abstract fun getViewModule(): VM
 
-    fun lifecycleObserver() {
+    /**
+     * 子类重写此方法时，注意调用 父类，否则不会有 observer
+     */
+    open fun lifecycleObserver() {
         viewModel = getViewModule()
         viewModel?.let {
             lifecycle.addObserver(it)

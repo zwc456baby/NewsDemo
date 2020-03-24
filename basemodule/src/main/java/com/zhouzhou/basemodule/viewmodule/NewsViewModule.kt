@@ -15,10 +15,6 @@ class NewsViewModule : BaseViewModule<NewsBean, NewsModule>(), BaseCallback<News
 
     private val logger = Logger("NewsViewModule")
     var helloWorld: MutableLiveData<ObservableField<String>> = MutableLiveData()
-        get() {
-            logger.d("get hello world")
-            return field
-        }
     var isFirst = true
     var curPage = 0
 
@@ -32,6 +28,8 @@ class NewsViewModule : BaseViewModule<NewsBean, NewsModule>(), BaseCallback<News
         logger.d("news view module success receive data")
 
         helloWorld.value?.set("you success load data")
+        // 只有 执行 postValue 才能使 View 的Observe onChanged 收到回调
+//       否则只有界面数据改变
         helloWorld.postValue(helloWorld.value)
     }
 

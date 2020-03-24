@@ -20,17 +20,12 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : IViewModule> : AppCompatA
 
     abstract fun getViewModule(): VM
 
-    open protected fun observeLifecycle() {
-
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = getViewModule()
         viewModel?.let {
             lifecycle.addObserver(it)
         }
-        observeLifecycle()
         bindLayout()
     }
 
