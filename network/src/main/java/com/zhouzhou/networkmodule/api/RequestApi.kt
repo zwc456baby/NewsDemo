@@ -14,4 +14,8 @@ interface RequestApi {
         @Query("num") num: Int,
         @Query("start") start: Int
     ): Observable<ResponseBody>
+
+    @GET("/channel")
+    fun getChannels(): Observable<ResponseBody>
+
 }

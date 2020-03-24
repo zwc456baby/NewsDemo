@@ -17,14 +17,12 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : IViewModule> : Fragment()
     protected var viewDataBinding: DB? = null
 
     abstract fun getLayoutId(): Int
-    open protected fun getBindingVariable(): Int {
-        return 0
-    }
+    abstract fun getBindingVariable(): Int
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        lifecycleObserver()
-
         viewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
+
+        lifecycleObserver()
         if (getBindingVariable() > 0) {
             // viewModel 不能为空，否则会绑定失败。界面没有数据
             viewDataBinding?.setVariable(getBindingVariable(), viewModel)

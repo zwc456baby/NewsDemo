@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import com.zhou.logutils.LogUtil
 import com.zhou.logutils.Logger
+import com.zhouzhou.basemodule.bean.Channel
 import com.zhouzhou.basemodule.bean.NewsBean
 import com.zhouzhou.basemodule.module.BaseModule
 import com.zhouzhou.basemodule.module.NewsModule
@@ -15,6 +16,7 @@ class NewsViewModule : BaseViewModule<NewsBean, NewsModule>(), BaseCallback<News
 
     private val logger = Logger("NewsViewModule")
     var helloWorld: MutableLiveData<ObservableField<String>> = MutableLiveData()
+    var channel: Channel = Channel("头条")
     var isFirst = true
     var curPage = 0
 
@@ -48,9 +50,9 @@ class NewsViewModule : BaseViewModule<NewsBean, NewsModule>(), BaseCallback<News
         logger.d("listenner on resume")
         if (isFirst) {
             isFirst = false
-            module?.requestNext(0)
+            module?.requestNext(0, channel)
         } else {
-            module?.requestNext(curPage)
+            module?.requestNext(curPage, channel)
         }
         curPage++
     }
