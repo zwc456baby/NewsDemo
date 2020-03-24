@@ -1,8 +1,7 @@
 package com.zhouzhou.newsdemo
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.zhou.logutils.LogUtil
 import com.zhou.logutils.Logger
@@ -36,6 +35,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, NewsViewModule>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        val handler = Handler(Looper.getMainLooper())
+        viewModel?.helloWorld?.observe(this, this)
     }
 }
