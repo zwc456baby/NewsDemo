@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.zhouzhou.basemodule.bean.NewsBean.ResultBean.ListBean"/>
+        <variable name="newbean" type="ListBean"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        <ImageView
+                android:id="@+id/newItemImg"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toRightOf="@id/newItemImg"
+                app:layout_constraintTop_toTopOf="@id/newItemImg"
+                app:layout_constraintBottom_toTopOf="@id/newItemSrc"
+                app:layout_constraintRight_toRightOf="parent"
+                android:id="@+id/newItemTitle"
+                app:layout_constraintHorizontal_weight="1"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@{newbean.title}"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                app:layout_constraintLeft_toRightOf="@id/newItemImg"
+                app:layout_constraintBottom_toBottomOf="@id/newItemImg"
+                android:id="@+id/newItemSrc"
+                android:text="@{newbean.src}"
+                android:textSize="12sp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/newItemTime"
+                android:textSize="12sp"
+                android:text="@{newbean.time}"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:background="#AAAAAA"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
