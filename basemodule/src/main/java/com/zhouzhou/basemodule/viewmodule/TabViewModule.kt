@@ -11,7 +11,7 @@ import com.zhouzhou.basemodule.module.BaseModule
 import com.zhouzhou.basemodule.module.ChannelModule
 import com.zhouzhou.basemodule.modulecallback.BaseCallback
 
-class ChannelViewModule : BaseViewModule<ChannelBean, ChannelModule>(), BaseCallback<ChannelBean> {
+class TabViewModule : BaseViewModule<ChannelBean, ChannelModule>(), BaseCallback<ChannelBean> {
     private val logger = Logger("ChannelViewModule")
 
     var channelList: MutableLiveData<ObservableArrayList<Channel>> = MutableLiveData()
@@ -19,6 +19,19 @@ class ChannelViewModule : BaseViewModule<ChannelBean, ChannelModule>(), BaseCall
     init {
         channelList.value = ObservableArrayList()
         module = ChannelModule()
+
+        /**
+         * 使用 Eventbus 接收跳转到 WebView 的消息
+         * 如果不使用 EventBus ，则需要在多个 Fragment 以及 ViewModule 之间传递 引用，耦合严重
+         * 不知是否有更好的实现方式
+         * （当然也可以通过一个 Activity ，单独承载 WebView 页面，使用 Context 进行跳转。但这样的话，
+         * 就不是之前所想的单Activity + 多Fragment 的App结构
+         * ）
+         * 所以问题就是：如何在多个 Fragment 之间传递数据
+         *
+         * 目前换回使用 Callback 的方式
+         */
+//        EventBus.getDefault().register(this)
     }
 
     override fun success(module: BaseModule<ChannelBean>, data: ChannelBean, any: Any?) {
@@ -50,6 +63,7 @@ class ChannelViewModule : BaseViewModule<ChannelBean, ChannelModule>(), BaseCall
 
     override fun onCleared() {
         super.onCleared()
+//        EventBus.getDefault().unregister(this)
         module?.unregister(this)
         module?.destory()
         module = null

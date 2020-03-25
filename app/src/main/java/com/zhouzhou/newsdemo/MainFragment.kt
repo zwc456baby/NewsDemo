@@ -1,20 +1,22 @@
 package com.zhouzhou.newsdemo
 
+import android.os.Bundle
 import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.zhou.logutils.LogUtil
 import com.zhou.logutils.Logger
 import com.zhouzhou.basemodule.bean.Channel
 import com.zhouzhou.basemodule.bean.NewsBean
+import com.zhouzhou.basemodule.callback.NewItemClickCallback
 import com.zhouzhou.basemodule.viewmodule.NewsViewModule
 import com.zhouzhou.baseview.BaseFragment
 import com.zhouzhou.newsdemo.adapter.NewsAdapter
 import com.zhouzhou.newsdemo.databinding.FragmentMainBinding
 
-class MainFragment() : BaseFragment<FragmentMainBinding, NewsViewModule>() {
+class MainFragment : BaseFragment<FragmentMainBinding, NewsViewModule>(), NewItemClickCallback {
 
     private val logger = Logger("MainFragment")
     private var channel = Channel("头条")
@@ -54,7 +56,7 @@ class MainFragment() : BaseFragment<FragmentMainBinding, NewsViewModule>() {
             val context = getContext() ?: return
 
             if (newsAdapter == null) {
-                newsAdapter = NewsAdapter(ArrayList(), context)
+                newsAdapter = NewsAdapter(ArrayList(), context, this)
             }
             viewDataBinding.newsRecycler.layoutManager = LinearLayoutManager(context)
             viewDataBinding.newsRecycler.adapter = newsAdapter
@@ -89,6 +91,13 @@ class MainFragment() : BaseFragment<FragmentMainBinding, NewsViewModule>() {
     private fun setChannel(channel: Channel) {
         this.channel = channel
         viewModel?.channel = channel
+    }
+
+    override fun onClick(newBean: NewsBean.ResultBean.ListBean) {
+        logger.d("fragment receive call back")
+        val bundle = Bundle()
+        bundle.putString("url", newBean.weburl)
+        NavHostFragment.findNavController(this).navigate(R.id.action_tab_to_webview, bundle)
     }
 
     companion object {

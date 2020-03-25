@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.zhou.logutils.LogUtil
 import com.zhouzhou.basemodule.bean.NewsBean
+import com.zhouzhou.basemodule.callback.NewItemClickCallback
 import com.zhouzhou.basemodule.common.CommonAdapter
 import com.zhouzhou.basemodule.viewmodule.NewItemVM
 import com.zhouzhou.newsdemo.databinding.RecycleritemNewsBinding
 
-class NewItemView(context: Context) : FrameLayout(context) {
+class NewItemView(context: Context, callBack: NewItemClickCallback?) : FrameLayout(context) {
 
     private val newItemVM = NewItemVM()
     private var dataBinding: RecycleritemNewsBinding? = null
@@ -22,6 +23,8 @@ class NewItemView(context: Context) : FrameLayout(context) {
             LogUtil.e("news adapter databinding is null")
         }
         addView(dataBinding!!.root)
+
+        newItemVM.setCallback(callBack)
         setOnClickListener {
             newItemVM.click()
         }

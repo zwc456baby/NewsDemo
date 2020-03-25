@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.zhou.logutils.LogUtil
 import com.zhouzhou.basemodule.bean.NewsBean
+import com.zhouzhou.basemodule.callback.NewItemClickCallback
 import com.zhouzhou.newsdemo.databinding.RecycleritemNewsBinding
 import com.zhouzhou.newsdemo.view.NewItemView
 import com.zhouzhou.newsdemo.viewholder.ItemViewHolder
@@ -15,12 +16,18 @@ class NewsAdapter : RecyclerView.Adapter<ItemViewHolder> {
     private val TAG = "NewsAdapter"
     private var list: ArrayList<NewsBean.ResultBean.ListBean> = ArrayList()
     private var context: Context? = null
+    private var callback: NewItemClickCallback? = null
 
     @Suppress("ConvertSecondaryConstructorToPrimary")
-    constructor(list: ArrayList<NewsBean.ResultBean.ListBean>, context: Context) : super() {
+    constructor(
+        list: ArrayList<NewsBean.ResultBean.ListBean>,
+        context: Context,
+        callback: NewItemClickCallback
+    ) : super() {
         LogUtil.d("receive new list bean:${list.size}")
         this.list = list
         this.context = context
+        this.callback = callback
     }
 
     fun setNewData(list: ArrayList<NewsBean.ResultBean.ListBean>) {
@@ -30,7 +37,7 @@ class NewsAdapter : RecyclerView.Adapter<ItemViewHolder> {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        return ItemViewHolder(NewItemView(parent.context))
+        return ItemViewHolder(NewItemView(parent.context, this.callback))
     }
 
     override fun getItemCount(): Int {

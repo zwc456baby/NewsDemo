@@ -6,13 +6,13 @@ import com.google.android.material.tabs.TabLayout
 import com.zhou.logutils.LogUtil
 import com.zhou.logutils.Logger
 import com.zhouzhou.basemodule.bean.Channel
-import com.zhouzhou.basemodule.viewmodule.ChannelViewModule
+import com.zhouzhou.basemodule.viewmodule.TabViewModule
 import com.zhouzhou.baseview.BaseFragment
 import com.zhouzhou.newsdemo.adapter.TabAdapter
 import com.zhouzhou.newsdemo.databinding.FragmentMainBinding
 import com.zhouzhou.newsdemo.databinding.FragmentTabBinding
 
-class TabFragment : BaseFragment<FragmentMainBinding, ChannelViewModule>() {
+class TabFragment : BaseFragment<FragmentMainBinding, TabViewModule>() {
     private val logger = Logger("TabFragment")
     private var tabAdapter: TabAdapter? = null
     private var channels: ObservableArrayList<Channel> = ObservableArrayList()
@@ -25,8 +25,11 @@ class TabFragment : BaseFragment<FragmentMainBinding, ChannelViewModule>() {
         return R.layout.fragment_tab
     }
 
-    override fun getViewModule(): ChannelViewModule {
-        return ViewModelProvider(this).get(ChannelViewModule::class.java)
+    override fun getViewModule(): TabViewModule {
+        activity?.let {
+            return ViewModelProvider(it).get(TabViewModule::class.java)
+        }
+        return ViewModelProvider(this).get(TabViewModule::class.java)
     }
 
     override fun lifecycleObserver() {

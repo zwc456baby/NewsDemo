@@ -16,13 +16,11 @@ import com.zhouzhou.basemodule.modulecallback.BaseCallback
 class NewsViewModule : BaseViewModule<NewsBean, NewsModule>(), BaseCallback<NewsBean> {
 
     private val logger = Logger("NewsViewModule")
-    var helloWorld: MutableLiveData<ObservableField<String>> = MutableLiveData()
     var newsData: MutableLiveData<ObservableArrayList<NewsBean.ResultBean.ListBean>> = MutableLiveData()
     var channel: Channel = Channel("头条")
     var curPage = 0
 
     init {
-        helloWorld.value = ObservableField("hello world")
         newsData.value = ObservableArrayList()
         module = NewsModule()
 //        helloWorld.observe
@@ -35,10 +33,8 @@ class NewsViewModule : BaseViewModule<NewsBean, NewsModule>(), BaseCallback<News
         }
         curPage++
 
-        helloWorld.value?.set("you success load data")
         // 只有 执行 postValue 才能使 View 的Observe onChanged 收到回调
 //       否则只有界面数据改变
-        helloWorld.postValue(helloWorld.value)
         newsData.value?.addAll(data.result.list)
         newsData.postValue(newsData.value)
     }
@@ -82,7 +78,6 @@ class NewsViewModule : BaseViewModule<NewsBean, NewsModule>(), BaseCallback<News
         module?.unregister(this)
         module?.destory()
         module = null
-//        helloWorld = null
     }
 
 }

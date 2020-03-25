@@ -10,12 +10,18 @@
             android:name="com.zhouzhou.newsdemo.TabFragment"
             tools:layout="@layout/fragment_tab">
         <action
-                android:id="@+id/action_main_to_test2"
-                app:destination="@id/test_fragment2"
+                android:id="@+id/action_tab_to_webview"
+                app:destination="@id/webview_fragment"
                 app:enterAnim="@anim/enter_anim"
                 app:exitAnim="@anim/exit_anim"
                 app:popEnterAnim="@anim/pop_enter_anim"
                 app:popExitAnim="@anim/pop_exit_anim"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/webview_fragment"
+            android:name="com.zhouzhou.newsdemo.WebViewFragment"
+            tools:layout="@layout/fragment_webview">
 
     </fragment>
 </navigation>
