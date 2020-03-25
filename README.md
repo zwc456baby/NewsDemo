@@ -16,10 +16,21 @@
 
 支持上拉加载以及 下拉 刷新（暂时没有加载和刷新动画或提示,未使用 RecyclerView 类库，需要自行实现）
 
+[APK 下载](https://nf.zwc365.com/release_assets/apk/app-release.apk)
+
+
+页面展示：
+
+![1](https://nf.zwc365.com/release_assets/images/news_home.png)
+
+![2](https://nf.zwc365.com/release_assets/images/news_weburl.png)
+
+#### other
 
 贴一片关于 MVVM 设计模式的链接
 
-![MVC、MVP、MVVM 如何选？](https://mp.weixin.qq.com/s/Kc1826MQ3ReMkoIWlsQGVw)
+[MVC、MVP、MVVM 如何选？](https://mp.weixin.qq.com/s/Kc1826MQ3ReMkoIWlsQGVw)
+
 
 ```
 7.3 MVVM 架构模式的优缺点

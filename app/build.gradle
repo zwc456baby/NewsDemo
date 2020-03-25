@@ -16,10 +16,22 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+
+        signConfig {
+            storeFile file('../newsdemo.jks')//签名文件路径，
+            storePassword '123456' //密码
+            keyAlias 'zhou'
+            keyPassword '123456'  //密码
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.signConfig // 配置release包的签名
+
         }
     }
     dataBinding {
