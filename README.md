@@ -16,7 +16,7 @@
 
 支持上拉加载以及 下拉 刷新（暂时没有加载和刷新动画或提示,未使用 RecyclerView 类库，需要自行实现）
 
-[APK 下载](https://nf.zwc365.com/release_assets/apk/app-release.apk)
+[APK 下载](https://nf.zwc365.com/release_assets/apk/newsdemo.apk)
 
 
 页面展示：
